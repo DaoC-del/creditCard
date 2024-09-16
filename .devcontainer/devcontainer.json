@@ -12,7 +12,9 @@
         "extensions": [
           "Vue.volar",        // Vue 3 支持
           "esbenp.prettier-vscode",  // Prettier 格式化
-          "dbaeumer.vscode-eslint"  // ESLint
+          "dbaeumer.vscode-eslint",  // ESLint
+          "bradlc.vscode-tailwindcss",// 类补全
+          "csstools.postcss"// post css support
         ]
       }
     }
