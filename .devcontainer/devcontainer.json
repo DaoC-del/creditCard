@@ -1,0 +1,20 @@
+{
+    "name": "Vue3 Tailwind Project",
+    "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
+    "postCreateCommand": "npm install",
+    "features": {
+      "ghcr.io/devcontainers/features/node:1": {
+        "version": "18"
+      }
+    },
+    "customizations": {
+      "vscode": {
+        "extensions": [
+          "Vue.volar",        // Vue 3 支持
+          "esbenp.prettier-vscode",  // Prettier 格式化
+          "dbaeumer.vscode-eslint"  // ESLint
+        ]
+      }
+    }
+  }
+  
