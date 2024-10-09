@@ -14,7 +14,7 @@ import { ref } from 'vue'
 
 // 导入组件
 import RadioButton from '@/components/RadioButton.vue'
-import Dropdown from '@/components/Dropdown.vue'
+import Dropdown from '@/components/PullDownList.vue'
 import TestRadioButton from '@/components/TestRadioButton.vue'
 
 // 测试数据

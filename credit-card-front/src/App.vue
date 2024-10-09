@@ -11,7 +11,9 @@ import TestLayout  from '@/layout/TestLayout.vue'
 
 <template>
   <div>
-    <BasicLayout/>
+    <BasicLayout>
+      <RouterView></RouterView>
+    </BasicLayout>
   </div>
   
 </template>
