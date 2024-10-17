@@ -4,8 +4,8 @@
       ref="dropdown"
       v-model="selectedValue"
       @change="emitChange"
-      @focus="startAnimation"
-      @blur="resetAnimation"
+      @focus="startBorderAnimation"
+      @blur="resetBorderAnimation"
       :class="[
         'select select-bordered transition-all duration-300',
         props.width,
@@ -28,7 +28,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { startBorderAnimation, resetBorderAnimation } from '../animation/rotatingBorder'
+import gsap from 'gsap'
 
 const props = defineProps({
   options: {
@@ -66,15 +66,22 @@ const emitChange = () => {
   emit('update:modelValue', selectedValue.value)
 }
 
-const startAnimation = () => {
-  if (dropdown.value) {
-    startBorderAnimation(dropdown.value)
-  }
+// 动画化渐变角度
+const startBorderAnimation = () => {
+  gsap.to(dropdown.value, {
+    duration: 2.3,
+    ease: 'linear',
+    repeat: -1,
+    css: {
+      '--gradient-angle': '+=360deg',
+    },
+  })
 }
 
-const resetAnimation = () => {
+const resetBorderAnimation = () => {
   if (dropdown.value) {
-    resetBorderAnimation(dropdown.value)
+    gsap.killTweensOf(dropdown.value)
+    dropdown.value.style.setProperty('--gradient-angle', '0deg')
   }
 }
 </script>
@@ -82,14 +89,7 @@ const resetAnimation = () => {
 <style scoped>
 .select {
   --gradient-angle: 0deg;
-  border: 4px solid transparent;
-  /* 初始状态为蓝色边框 */
-  border-image: linear-gradient(var(--gradient-angle), cyan 0%, cyan 100%) 1;
+  border-image: linear-gradient(var(--gradient-angle), gold 0%, transparent 100%) 1;
   border-image-slice: 1;
-}
-
-.select:focus {
-  /* 聚焦时渐变开始从蓝色到金色 */
-  border-image: linear-gradient(var(--gradient-angle), cyan 0%, gold 100%) 1;
 }
 </style>
