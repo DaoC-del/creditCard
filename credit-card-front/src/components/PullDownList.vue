@@ -3,10 +3,10 @@
     <select
       ref="dropdown"
       v-model="selectedValue"
-      @change="emitChange"
+      @change="handleChange"
       @focus="startAnimation"
       @blur="resetAnimation"
-      :class="[
+      :class="[ 
         'select select-bordered transition-all duration-300',
         props.width,
         props.height,
@@ -19,6 +19,7 @@
         v-for="(option, index) in options"
         :key="index"
         :value="option.value"
+        ref="dropdownItem"
       >
         {{ option.label }}
       </option>
@@ -27,8 +28,10 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
-import { startBorderAnimation, resetBorderAnimation } from '../animation/rotatingBorder'
+import { ref, watch, onMounted, onBeforeUnmount, nextTick } from 'vue';
+import { applyArtisticBackground } from '../animation/backgroundAnimation';
+import { animateDropdownItemsEntry, animateItemSelection } from '../animation/itemAnimations';
+import { startBorderAnimation, resetBorderAnimation } from '../animation/rotatingBorder';
 
 const props = defineProps({
   options: {
@@ -51,32 +54,55 @@ const props = defineProps({
     type: String,
     default: 'rounded-lg',
   },
-})
+});
 
-const selectedValue = ref(props.modelValue)
-const emit = defineEmits(['update:modelValue'])
+const selectedValue = ref(props.modelValue);
+const emit = defineEmits(['update:modelValue']);
 
-const dropdown = ref<HTMLSelectElement | null>(null)
+const dropdown = ref<HTMLSelectElement | null>(null);
+let dropdownItems: NodeListOf<HTMLElement> | null = null;
+let isDropdownOpen = ref(false);
 
 watch(() => props.modelValue, (newVal) => {
-  selectedValue.value = newVal
-})
+  selectedValue.value = newVal;
+});
 
-const emitChange = () => {
-  emit('update:modelValue', selectedValue.value)
-}
+const handleChange = () => {
+  emit('update:modelValue', selectedValue.value);
+};
 
+// 在组件挂载后，缓存选项项并应用背景动画
+onMounted(() => {
+  if (dropdown.value) {
+    applyArtisticBackground(dropdown.value);
+  }
+});
+
+// 在下拉框获取焦点时执行动画
+const handleDropdownOpen = async () => {
+  if (isDropdownOpen.value) return;
+  isDropdownOpen.value = true;
+  startAnimation();
+};
+
+// 在下拉框失去焦点时重置动画
+const handleDropdownClose = () => {
+  isDropdownOpen.value = false;
+  resetAnimation();
+};
+
+// 动画效果函数
 const startAnimation = () => {
   if (dropdown.value) {
-    startBorderAnimation(dropdown.value)
+    startBorderAnimation(dropdown.value);
   }
-}
+};
 
 const resetAnimation = () => {
   if (dropdown.value) {
-    resetBorderAnimation(dropdown.value)
+    resetBorderAnimation(dropdown.value);
   }
-}
+};
 </script>
 
 <style scoped>

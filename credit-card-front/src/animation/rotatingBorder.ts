@@ -5,6 +5,7 @@ export const startBorderAnimation = (element: HTMLElement) => {
   element.style.setProperty('--gradient-angle', '0deg')
 
   gsap.to(element, {
+    id: 'borderAnimation',
     duration: 3.3,
     ease: 'sine.inOut', // 使用 Sine 缓动函数，提供平滑的开始和结束效果
     repeat: -1,
@@ -15,7 +16,7 @@ export const startBorderAnimation = (element: HTMLElement) => {
 }
 
 export const resetBorderAnimation = (element: HTMLElement) => {
-  gsap.killTweensOf(element)
+  gsap.killTweensOf(element,'borderAnimation')
   // 重置角度，返回到初始状态
   element.style.setProperty('--gradient-angle', '0deg')
 }
