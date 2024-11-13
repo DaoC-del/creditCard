@@ -1,17 +1,28 @@
+// errorHandler.ts
 import { ref } from 'vue';
 
-const dialogVisible = ref(true);
-const dialogMessage = ref('');
+type ErrorType = 'common' | 'confirm' | 'network';
+
+interface ErrorConfig {
+  type: ErrorType;
+  message: string;
+}
+
+const dialogVisible = ref(false);
+const dialogMessage = ref<string>('');
+const errorType = ref<ErrorType>('common');
+
+const showError = (errorConfig: ErrorConfig) => {
+  errorType.value = errorConfig.type;
+  dialogMessage.value = errorConfig.message;
+  dialogVisible.value = true;
+};
 
 export function useErrorHandler() {
-  const showError = (message: string) => {
-    dialogMessage.value = message;
-    dialogVisible.value = true;
-  };
-
   return {
-    showError,
     dialogVisible,
     dialogMessage,
+    errorType,
+    showError,
   };
 }

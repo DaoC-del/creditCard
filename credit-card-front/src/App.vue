@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import BasicLayout from '@/layout/BasicLayout.vue'
 import { RouterView } from 'vue-router'
-import TestLayout  from '@/layout/TestLayout.vue'
+import TestLayout from '@/layout/TestLayout.vue'
+import DialogManager from './components/dialog/DialogManager.vue';
 
 // <BasicLayout>
 //     <!-- 渲染路由内容 -->
@@ -12,10 +13,11 @@ import TestLayout  from '@/layout/TestLayout.vue'
 <template>
   <div>
     <BasicLayout>
-      <RouterView></RouterView>
+      <RouterView />
+      <DialogManager />
     </BasicLayout>
   </div>
-  
+
 </template>
 
 <style scoped>
