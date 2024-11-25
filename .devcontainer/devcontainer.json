@@ -2,7 +2,6 @@
   "name": "Vue3 Tailwind Spring Project",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
   "features": {
-      "ghcr.io/devcontainers/features/docker-in-docker:1": {},
       "ghcr.io/devcontainers/features/node:1": {
           "version": "18"
       }
@@ -20,13 +19,19 @@
           ]
       }
   },
-  "postCreateCommand": "npm install && sudo apt-get update && sudo apt-get install -y default-jdk maven curl unzip",
-  "onCreateCommand": "curl -s https://get.sdkman.io | bash",
-  "postStartCommand": [
-      "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install springboot",
-      "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 17.0.8-tem"
+  "postCreateCommand": [
+      "npm install",
+      "sudo apt-get update",
+      "sudo apt-get install -y default-jdk maven curl unzip"
+  ],
+  "onCreateCommand": [
+      "curl -s https://get.sdkman.io | bash && source $HOME/.sdkman/bin/sdkman-init.sh && sdk install springboot && sdk install java 17.0.8-tem && sdk install maven"
   ],
   "mounts": [
       "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
-  ]
+  ],
+  "postStartCommand": [],
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
+  "workspaceFolder": "/workspace",
+  "overrideCommand": false
 }
