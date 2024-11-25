@@ -1,12 +1,13 @@
 {
   "name": "Vue3 Tailwind Project",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
+  "postCreateCommand": "npm install && ./setup.sh",
   "features": {
     "ghcr.io/devcontainers/features/node:1": {
       "version": "18"
     },
-    "ghcr.io/devcontainers/features/docker-in-docker:2": {}, // 启用 Docker
-    "ghcr.io/devcontainers/features/docker-compose:1": {}    // 启用 docker-compose
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}, // 启用 Docker 支持
+    "ghcr.io/devcontainers/features/docker-compose:1": {}    // 启用 docker-compose 支持
   },
   "customizations": {
     "vscode": {
@@ -19,13 +20,8 @@
       ]
     }
   },
-  "postCreateCommand": "npm install && ./setup.sh",
-  "initializeCommand": "docker-compose up -d", // 启动 docker-compose
   "mounts": [
-    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+    "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind" // 挂载 Docker 的套接字
   ],
-  "onCreateCommand": "chmod +x ./setup.sh", // 确保 setup.sh 可执行
-  "customCommands": [
-    "docker-compose up"
-  ]
+  "onCreateCommand": "chmod +x ./setup.sh" // 确保 setup.sh 可执行
 }
