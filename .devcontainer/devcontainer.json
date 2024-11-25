@@ -1,22 +1,32 @@
 {
-    "name": "Vue3 Tailwind Project",
-    "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
-    "postCreateCommand": "npm install",
-    "features": {
+  "name": "Vue3 Tailwind Spring Project",
+  "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
+  "features": {
+      "ghcr.io/devcontainers/features/docker-in-docker:1": {},
       "ghcr.io/devcontainers/features/node:1": {
-        "version": "18"
+          "version": "18"
       }
-    },
-    "customizations": {
+  },
+  "customizations": {
       "vscode": {
-        "extensions": [
-          "Vue.volar",        // Vue 3 支持
-          "esbenp.prettier-vscode",  // Prettier 格式化
-          "dbaeumer.vscode-eslint",  // ESLint
-          "bradlc.vscode-tailwindcss",// 类补全
-          "csstools.postcss"// post css support
-        ]
+          "extensions": [
+              "Vue.volar",                  // Vue 3 支持
+              "esbenp.prettier-vscode",     // Prettier 格式化
+              "dbaeumer.vscode-eslint",     // ESLint
+              "bradlc.vscode-tailwindcss",  // TailwindCSS 类补全
+              "csstools.postcss",           // PostCSS 支持
+              "Pivotal.vscode-spring-boot", // Spring Boot 支持
+              "vscjava.vscode-spring-initializr" // Spring Initializr
+          ]
       }
-    }
-  }
-  
+  },
+  "postCreateCommand": "npm install && sudo apt-get update && sudo apt-get install -y default-jdk maven curl unzip",
+  "onCreateCommand": "curl -s https://get.sdkman.io | bash",
+  "postStartCommand": [
+      "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install springboot",
+      "source $HOME/.sdkman/bin/sdkman-init.sh && sdk install java 17.0.8-tem"
+  ],
+  "mounts": [
+      "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
+  ]
+}
