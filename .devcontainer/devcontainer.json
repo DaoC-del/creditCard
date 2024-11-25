@@ -1,37 +1,21 @@
 {
-  "name": "Vue3 Tailwind Spring Project",
+  "name": "Vue3 Tailwind Project",
   "image": "mcr.microsoft.com/devcontainers/javascript-node:18",
+  "postCreateCommand": "npm install",
   "features": {
-      "ghcr.io/devcontainers/features/node:1": {
-          "version": "18"
-      }
+    "ghcr.io/devcontainers/features/node:1": {
+      "version": "18"
+    }
   },
   "customizations": {
-      "vscode": {
-          "extensions": [
-              "Vue.volar",                  // Vue 3 支持
-              "esbenp.prettier-vscode",     // Prettier 格式化
-              "dbaeumer.vscode-eslint",     // ESLint
-              "bradlc.vscode-tailwindcss",  // TailwindCSS 类补全
-              "csstools.postcss",           // PostCSS 支持
-              "Pivotal.vscode-spring-boot", // Spring Boot 支持
-              "vscjava.vscode-spring-initializr" // Spring Initializr
-          ]
-      }
-  },
-  "postCreateCommand": [
-      "npm install",
-      "sudo apt-get update",
-      "sudo apt-get install -y default-jdk maven curl unzip"
-  ],
-  "onCreateCommand": [
-      "curl -s https://get.sdkman.io | bash && source $HOME/.sdkman/bin/sdkman-init.sh && sdk install springboot && sdk install java 17.0.8-tem && sdk install maven"
-  ],
-  "mounts": [
-      "source=/var/run/docker.sock,target=/var/run/docker.sock,type=bind"
-  ],
-  "postStartCommand": [],
-  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind,consistency=cached",
-  "workspaceFolder": "/workspace",
-  "overrideCommand": false
+    "vscode": {
+      "extensions": [
+        "Vue.volar",        // Vue 3 支持
+        "esbenp.prettier-vscode",  // Prettier 格式化
+        "dbaeumer.vscode-eslint",  // ESLint
+        "bradlc.vscode-tailwindcss",// 类补全
+        "csstools.postcss"// post css support
+      ]
+    }
+  }
 }
